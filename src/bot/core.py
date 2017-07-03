@@ -20,10 +20,10 @@ class pinBot():
         if(searchType=='pin'):
             print(self.baseUrl + r'/search/pins/?q=' + keyword )
             data = urlopen(self.baseUrl + r'/search/pins/?q=' + keyword ).read()
-            print(data)
+            print(BeautifulSoup(data,"html.parser").prettify()[0:1000])
         elif(searchType=='board'):
             data = urlopen(self.baseUrl + r'/search/boards/?q=' + keyword ).read()
-            print(data)
+            print(BeautifulSoup(data,"html.parser").prettify()[0:1000])
         else:
             raise "something happened"
 
