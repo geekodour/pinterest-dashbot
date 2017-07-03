@@ -23,30 +23,44 @@ class pinBot():
         ids = []
         if(searchType=='pin'):
             pinDriver = webdriver.PhantomJS()
+            pinDriver.set_window_size(2120, 5500)
             pinDriver.get( self.baseUrl + r'/search/pins/?q=' + keyword )
+            time.sleep(20) # give time to load
             #body = pinDriver.find_element_by_tag_name("body")
             pinEls = []
+            pinDriver.save_screenshot('myy.png')
+            pinEls.extend(pinDriver.find_elements_by_css_selector('.pinImageWrapper'))
+            pinDriver.execute_script("return window.scrollTo(0, document.body.scrollHeight);")
+            time.sleep(5) # give time to load
+            pinDriver.save_screenshot('myy2.png')
+            for pin in pinEls:
+                print(re.search('\d+',pin.get_attribute('href')).group())
+            """
             while scrolls: #scrolls is an int
-                #pinEls.extend(pinDriver.find_elements_by_css_selector('.pinImageWrapper'))
-                pinEls.extend(pinDriver.execute_script("return document.querySelectorAll('.pinImageWrapper')"))
+                pinEls.extend(pinDriver.find_elements_by_css_selector('.pinImageWrapper'))
+                #pinEls.extend(pinDriver.execute_script("return document.querySelectorAll('.pinImageWrapper')"))
+                #pinEls = pinDriver.execute_script("return document.querySelectorAll('.pinImageWrapper')")
 
                 # get all pin elements to pinEls
                 #pinEls = pinDriver.find_elements_by_css_selector('.pinImageWrapper')
                 # take ss
-                pinDriver.get_screenshot_as_file('google'+str(scrolls)+'.png')
+                #pinDriver.get_screenshot_as_file('google'+str(scrolls)+'.png')
+                pinDriver.save_screenshot('google'+str(scrolls)+'.png')
                 # print ids
                 for pin in pinEls:
                     print(re.search('\d+',pin.get_attribute('href')).group())
                 # scroll last element to top
-                pinDriver.execute_script("return arguments[0].scrollIntoView();", pinEls[len(pinEls)-1])
+                #pinDriver.execute_script("return arguments[0].scrollIntoView();", pinEls[len(pinEls)-1])
 
-                #pinDriver.execute_script("window.scrollBy(0, document.body.scrollHeight);")
+                pinDriver.execute_script("return window.scrollTo(0, document.body.scrollHeight);")
+                print(len(pinEls))
+                #pinDriver.execute_script("window.scrollBy(0,3000);")
                 #print(pinDriver.execute_script("return document.title"))
                 #pinDriver.execute_script("return window.scrollTo(0, document.body.scrollHeight);")
                 #print(pinEls[len(pinEls)-1])
                 #pinDriver.execute_script("window.scrollBy(0, -150);")
                 #body.send_keys(Keys.PAGE_DOWN)
-                time.sleep(3) # give time to load
+                time.sleep(10) # give time to load
                 scrolls-=1
                 print("******")
             #pinEls = pinDriver.find_elements_by_css_selector('.pinImageWrapper')
@@ -58,7 +72,7 @@ class pinBot():
             #pins = soup.find_all("a", {'class':['pinLink','pinImageWrapper']})
             #for pin in pins:
             #	ids.append(re.search('\d+',pin.get('href')).group())
-            #return ids
+            #return ids"""
         elif(searchType=='board'):
             data = urlopen(self.baseUrl + r'/search/boards/?q=' + keyword ).read()
             soup = BeautifulSoup(data,"html.parser")
