@@ -32,17 +32,21 @@ class pinBot():
             pinDriver.get( self.baseUrl + r'/search/pins/?q=' + keyword )
             pinEls = []
             while scrolls: #scrolls is an int
-                pinEls.extend(pinDriver.find_elements_by_css_selector('.pinImageWrapper'))
+                #pinEls.extend(pinDriver.find_elements_by_css_selector('.pinImageWrapper'))
 
-                for pin in pinEls:
-                    ids.append(re.search('\d+',pin.get_attribute('href')).group())
+                #for pin in pinEls:
+                #    ids.append(re.search('\d+',pin.get_attribute('href')).group())
 
                 pinDriver.execute_script("return window.scrollTo(0, document.body.scrollHeight);")
 
                 time.sleep(5) # give time to load
                 scrolls-=1
+
+            pinEls.extend(pinDriver.find_elements_by_css_selector('.pinImageWrapper'))
+            for pin in pinEls:
+                ids.append(re.search('\d+',pin.get_attribute('href')).group())
             pinDriver.quit()
-            return (set(ids),ids)
+            return set(ids)
         elif(searchType=='board'):
             data = urlopen(self.baseUrl + r'/search/boards/?q=' + keyword ).read()
             soup = BeautifulSoup(data,"html.parser")
