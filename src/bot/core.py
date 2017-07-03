@@ -3,7 +3,7 @@
 import requests
 import time
 from selenium import webdriver
-from selenium.webdriver.common.keys import Keys
+#from selenium.webdriver.common.keys import Keys
 import re
 from urllib.request import urlopen
 from bs4 import BeautifulSoup
@@ -24,17 +24,33 @@ class pinBot():
         if(searchType=='pin'):
             pinDriver = webdriver.PhantomJS()
             pinDriver.get( self.baseUrl + r'/search/pins/?q=' + keyword )
-            body = pinDriver.find_element_by_tag_name("body")
-            while scrolls:
-                pinEls = pinDriver.find_elements_by_css_selector('.pinImageWrapper')
+            #body = pinDriver.find_element_by_tag_name("body")
+            pinEls = []
+            while scrolls: #scrolls is an int
+                pinEls.extend(pinDriver.find_elements_by_css_selector('.pinImageWrapper'))
+
+                # get all pin elements to pinEls
+                #pinEls = pinDriver.find_elements_by_css_selector('.pinImageWrapper')
+                # take ss
                 pinDriver.get_screenshot_as_file('google'+str(scrolls)+'.png')
+                # print ids
                 for pin in pinEls:
                     print(re.search('\d+',pin.get_attribute('href')).group())
-                pinDriver.execute_script("window.scrollBy(0, document.body.scrollHeight);")
+                # scroll last element to top
+                print(len(pinEls))
+                pinDriver.execute_script("return arguments[0].scrollIntoView();", pinEls[len(pinEls)-1])
+                #pinDriver.execute_script("window.scrollBy(0, document.body.scrollHeight);")
+                #print(pinDriver.execute_script("return document.title"))
+                #pinDriver.execute_script("return window.scrollTo(0, document.body.scrollHeight);")
+                #print(pinEls[len(pinEls)-1])
+                #pinDriver.execute_script("window.scrollBy(0, -150);")
                 #body.send_keys(Keys.PAGE_DOWN)
-                time.sleep(4)
+                time.sleep(3) # give time to load
                 scrolls-=1
                 print("******")
+            #pinEls = pinDriver.find_elements_by_css_selector('.pinImageWrapper')
+            #for pin in pinEls:
+            #    print(re.search('\d+',pin.get_attribute('href')).group())
             pinDriver.quit()
             #data = urlopen(self.baseUrl + r'/search/pins/?q=' + keyword ).read()
             #soup = BeautifulSoup(data,"html.parser")
