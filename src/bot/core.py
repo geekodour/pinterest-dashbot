@@ -1,8 +1,8 @@
 #!/usr/bin/env python
 # -*- coding: utf8 -*-
 import requests
-#from selenium import webdriver
-#from selenium.webdriver.common.keys import Keys
+from selenium import webdriver
+from selenium.webdriver.common.keys import Keys
 import re
 from urllib.request import urlopen
 from bs4 import BeautifulSoup
@@ -10,6 +10,12 @@ from bs4 import BeautifulSoup
 import helpers
 #driver = webdriver.Chrome(executable_path = '/usr/bin/chromedriver')
 #driver = webdriver.Firefox()
+driver = webdriver.PhantomJS()
+driver.get("https://duckduckgo.com/")
+driver.find_element_by_id('search_form_input_homepage').send_keys("realpython")
+driver.find_element_by_id("search_button_homepage").click()
+print(driver.current_url)
+driver.quit()
 
 ACCESS_TOKEN = 'AbVZ6pBecrXC9afBG9mahRCxS8NuFM2MA50rraBEIg4xUYA_VwAAAAA'
 
