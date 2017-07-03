@@ -23,7 +23,7 @@ class pinBot():
             soup = BeautifulSoup(data,"html.parser")
             pins = soup.find_all("a", {'class':['pinLink','pinImageWrapper']})
             for pin in pins:
-            	print(pin.get('href')
+            	print(pin.get('href'))
         elif(searchType=='board'):
             data = urlopen(self.baseUrl + r'/search/boards/?q=' + keyword ).read()
             print(BeautifulSoup(data,"html.parser").prettify()[0:1000])
