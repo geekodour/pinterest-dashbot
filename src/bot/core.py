@@ -1,11 +1,15 @@
 #!/usr/bin/env python
 # -*- coding: utf8 -*-
 import requests
+#from selenium import webdriver
+#from selenium.webdriver.common.keys import Keys
 import re
 from urllib.request import urlopen
 from bs4 import BeautifulSoup
 
 import helpers
+#driver = webdriver.Chrome(executable_path = '/usr/bin/chromedriver')
+#driver = webdriver.Firefox()
 
 ACCESS_TOKEN = 'AbVZ6pBecrXC9afBG9mahRCxS8NuFM2MA50rraBEIg4xUYA_VwAAAAA'
 
