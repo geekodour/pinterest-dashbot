@@ -27,7 +27,8 @@ class pinBot():
             #body = pinDriver.find_element_by_tag_name("body")
             pinEls = []
             while scrolls: #scrolls is an int
-                pinEls.extend(pinDriver.find_elements_by_css_selector('.pinImageWrapper'))
+                #pinEls.extend(pinDriver.find_elements_by_css_selector('.pinImageWrapper'))
+                pinEls.extend(pinDriver.execute_script("return document.querySelectorAll('.pinImageWrapper')"))
 
                 # get all pin elements to pinEls
                 #pinEls = pinDriver.find_elements_by_css_selector('.pinImageWrapper')
@@ -37,8 +38,8 @@ class pinBot():
                 for pin in pinEls:
                     print(re.search('\d+',pin.get_attribute('href')).group())
                 # scroll last element to top
-                print(len(pinEls))
                 pinDriver.execute_script("return arguments[0].scrollIntoView();", pinEls[len(pinEls)-1])
+
                 #pinDriver.execute_script("window.scrollBy(0, document.body.scrollHeight);")
                 #print(pinDriver.execute_script("return document.title"))
                 #pinDriver.execute_script("return window.scrollTo(0, document.body.scrollHeight);")
