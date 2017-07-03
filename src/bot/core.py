@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf8 -*-
 import requests
+import time
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 import re
@@ -11,9 +12,14 @@ import helpers
 #driver = webdriver.Chrome(executable_path = '/usr/bin/chromedriver')
 #driver = webdriver.Firefox()
 driver = webdriver.PhantomJS()
-driver.get("https://duckduckgo.com/")
-driver.find_element_by_id('search_form_input_homepage').send_keys("realpython")
-driver.find_element_by_id("search_button_homepage").click()
+driver.get("https://medium.com/top-100/december-2013")
+time.sleep(1)
+elem = browser.find_element_by_tag_name("body")
+no_of_pagedowns = 20
+while no_of_pagedowns:
+    elem.send_keys(Keys.PAGE_DOWN)
+    time.sleep(0.2)
+    no_of_pagedowns-=1
 print(driver.current_url)
 driver.quit()
 
