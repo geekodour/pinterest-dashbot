@@ -1,3 +1,3 @@
 import core
 a=core.pinBot()
-a.search('pooop','pin')
+print(a.search('pooop','pin'))
