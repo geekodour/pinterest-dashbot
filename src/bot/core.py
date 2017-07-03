@@ -2,6 +2,7 @@
 # -*- coding: utf8 -*-
 import requests
 import time
+from urllib.parse import urlparse
 from selenium import webdriver
 from selenium.webdriver.common.desired_capabilities import DesiredCapabilities
 #from selenium.webdriver.common.keys import Keys
@@ -25,6 +26,7 @@ class pinBot():
 
     def search(self,keyword,searchType,scrolls):
         ids = []
+        users = []
         if(searchType=='pin'):
             pinDriver = webdriver.PhantomJS(desired_capabilities=dcap)
             pinDriver.get( self.baseUrl + r'/search/pins/?q=' + keyword )
@@ -53,14 +55,11 @@ class pinBot():
 
             boardEls.extend(boardDriver.find_elements_by_css_selector('.boardLinkWrapper'))
             for board in boardEls:
-            	ids.append(board.get_attribute('href'))
+            	boardData = urlparse(board.get_attribute('href')).path.split('/')[1:]
+            	ids.append( '/'.join(boardData) )
+            	users.append(boardData[0])
             boardDriver.quit()
-            return set(ids)
-            """data = urlopen(self.baseUrl + r'/search/boards/?q=' + keyword ).read()
-            soup = BeautifulSoup(data,"html.parser")
-            boards = soup.find_all("a", {'class':['boardLinkWrapper']})
-            for board in boards:
-            	ids.append(board.get('href'))"""
+            return (set(ids),set(users))
         else:
             raise "something happened"
 
