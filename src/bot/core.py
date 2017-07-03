@@ -9,19 +9,8 @@ from urllib.request import urlopen
 from bs4 import BeautifulSoup
 
 import helpers
-#driver = webdriver.Chrome(executable_path = '/usr/bin/chromedriver')
-#driver = webdriver.Firefox()
-driver = webdriver.PhantomJS()
-driver.get("https://medium.com/top-100/december-2013")
-time.sleep(1)
-elem = browser.find_element_by_tag_name("body")
-no_of_pagedowns = 20
-while no_of_pagedowns:
-    elem.send_keys(Keys.PAGE_DOWN)
-    time.sleep(0.2)
-    no_of_pagedowns-=1
-print(driver.current_url)
-driver.quit()
+#print(driver.current_url)
+#driver.quit()
 
 ACCESS_TOKEN = 'AbVZ6pBecrXC9afBG9mahRCxS8NuFM2MA50rraBEIg4xUYA_VwAAAAA'
 
@@ -29,15 +18,24 @@ class pinBot():
     def __init__(self):
         self.baseUrl = 'https://in.pinterest.com'
         self.apiUrl = 'https://api.pinterest.com/v1/'
-        pass
 
-    def search(self,keyword,searchType):
+    def search(self,keyword,searchType,scrolls):
         ids = []
         if(searchType=='pin'):
             pinDriver = webdriver.PhantomJS()
             pinDriver.get( self.baseUrl + r'/search/pins/?q=' + keyword )
-            time.sleep(1)
-            pinEls = pinDriver.find_elements_by_css_selector('a.pinLink.pinImageWrapper')
+            body = pinDriver.find_element_by_tag_name("body")
+            while scrolls:
+                pinEls = pinDriver.find_elements_by_css_selector('.pinImageWrapper')
+                pinDriver.get_screenshot_as_file('google'+str(scrolls)+'.png') 
+                for pin in pinEls:
+                    print(re.search('\d+',pin.get_attribute('href')).group())
+                pinDriver.execute_script("window.scrollTo(0, document.body.scrollHeight);")
+                #body.send_keys(Keys.PAGE_DOWN)
+                time.sleep(6)
+                scrolls-=1
+                print("******")
+            pinDriver.quit()
             #data = urlopen(self.baseUrl + r'/search/pins/?q=' + keyword ).read()
             #soup = BeautifulSoup(data,"html.parser")
             #pins = soup.find_all("a", {'class':['pinLink','pinImageWrapper']})
