@@ -27,12 +27,12 @@ class pinBot():
             body = pinDriver.find_element_by_tag_name("body")
             while scrolls:
                 pinEls = pinDriver.find_elements_by_css_selector('.pinImageWrapper')
-                pinDriver.get_screenshot_as_file('google'+str(scrolls)+'.png') 
+                pinDriver.get_screenshot_as_file('google'+str(scrolls)+'.png')
                 for pin in pinEls:
                     print(re.search('\d+',pin.get_attribute('href')).group())
-                pinDriver.execute_script("window.scrollTo(0, document.body.scrollHeight);")
+                pinDriver.execute_script("window.scrollBy(0, document.body.scrollHeight);")
                 #body.send_keys(Keys.PAGE_DOWN)
-                time.sleep(6)
+                time.sleep(4)
                 scrolls-=1
                 print("******")
             pinDriver.quit()
