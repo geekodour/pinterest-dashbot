@@ -15,8 +15,6 @@ dcap["phantomjs.page.settings.userAgent"] = (
     "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/53 "
     "(KHTML, like Gecko) Chrome/15.0.87"
 )
-#print(driver.current_url)
-#driver.quit()
 
 ACCESS_TOKEN = 'AbVZ6pBecrXC9afBG9mahRCxS8NuFM2MA50rraBEIg4xUYA_VwAAAAA'
 
@@ -31,15 +29,10 @@ class pinBot():
             pinDriver = webdriver.PhantomJS(desired_capabilities=dcap)
             pinDriver.get( self.baseUrl + r'/search/pins/?q=' + keyword )
             pinEls = []
-            while scrolls: #scrolls is an int
-                #pinEls.extend(pinDriver.find_elements_by_css_selector('.pinImageWrapper'))
 
-                #for pin in pinEls:
-                #    ids.append(re.search('\d+',pin.get_attribute('href')).group())
-
+            while scrolls:
                 pinDriver.execute_script("return window.scrollTo(0, document.body.scrollHeight);")
-
-                time.sleep(5) # give time to load
+                time.sleep(5)
                 scrolls-=1
 
             pinEls.extend(pinDriver.find_elements_by_css_selector('.pinImageWrapper'))
@@ -47,13 +40,27 @@ class pinBot():
                 ids.append(re.search('\d+',pin.get_attribute('href')).group())
             pinDriver.quit()
             return set(ids)
+
         elif(searchType=='board'):
-            data = urlopen(self.baseUrl + r'/search/boards/?q=' + keyword ).read()
+            boardDriver = webdriver.PhantomJS(desired_capabilities=dcap)
+            boardDriver.get( self.baseUrl + r'/search/boards/?q=' + keyword )
+            boardEls = []
+
+            while scrolls:
+                boardDriver.execute_script("return window.scrollTo(0, document.body.scrollHeight);")
+                time.sleep(5)
+                scrolls-=1
+
+            boardEls.extend(boardDriver.find_elements_by_css_selector('.boardLinkWrapper'))
+            for board in boardEls:
+            	ids.append(board.get_attribute('href'))
+            boardDriver.quit()
+            return set(ids)
+            """data = urlopen(self.baseUrl + r'/search/boards/?q=' + keyword ).read()
             soup = BeautifulSoup(data,"html.parser")
             boards = soup.find_all("a", {'class':['boardLinkWrapper']})
             for board in boards:
-            	ids.append(board.get('href'))
-            return ids
+            	ids.append(board.get('href'))"""
         else:
             raise "something happened"
 
