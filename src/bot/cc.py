@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf8 -*-
 import requests
-#import urllib2
+# import urllib2
 from urllib.request import urlopen
 from bs4 import BeautifulSoup
 
@@ -9,53 +9,60 @@ import helpers
 
 ACCESS_TOKEN = 'AbVZ6pBecrXC9afBG9mahRCxS8NuFM2MA50rraBEIg4xUYA_VwAAAAA'
 
+
 class pinBot():
     def __init__(self):
         self.baseUrl = 'https://in.pinterest.com'
         self.apiUrl = 'https://api.pinterest.com/v1/'
         pass
 
-    def search(self,keyword,searchType):
+    def search(self, keyword, searchType):
         ids = []
-        if(searchType=='pin'):
-            print(self.baseUrl + r'/search/pins/?q=' + keyword )
-            data = urlopen(self.baseUrl + r'/search/pins/?q=' + keyword ).read()
-            soup = BeautifulSoup(data,"html.parser")
-            pins = soup.find_all("a", {'class':['pinLink','pinImageWrapper']})
+        if(searchType == 'pin'):
+            print(self.baseUrl + r'/search/pins/?q=' + keyword)
+            data = urlopen(self.baseUrl + r'/search/pins/?q=' + keyword).read()
+            soup = BeautifulSoup(data, "html.parser")
+            pins = soup.find_all(
+                "a", {'class': ['pinLink', 'pinImageWrapper']})
             for pin in pins:
             	print(pin.get('href')
-        elif(searchType=='board'):
-            data = urlopen(self.baseUrl + r'/search/boards/?q=' + keyword ).read()
-            print(BeautifulSoup(data,"html.parser").prettify()[0:1000])
+        elif(searchType == 'board'):
+            data=urlopen(self.baseUrl + r'/search/boards/?q=' + keyword).read()
+            print(BeautifulSoup(data, "html.parser").prettify()[0:1000])
         else:
             raise "something happened"
 
-    def followUser(self,userId):
-        params = [ 'access_token='+ACCESS_TOKEN, 'user='+userId]
-        r = requests.post(self.apiUrl+'me/following/users/?'+'&'.join(params))
+    def followUser(self, userId):
+        params=['access_token=' + ACCESS_TOKEN, 'user=' + userId]
+        r=requests.post(
+            self.apiUrl + 'me/following/users/?' + '&'.join(params))
         print(r.status_code)
 
-    def unfollowUser(self,userId):
-        params = [ 'access_token='+ACCESS_TOKEN ]
-        r = requests.post(self.apiUrl+'me/following/users/'+userId+'?'+'&'.join(params))
+    def unfollowUser(self, userId):
+        params=['access_token=' + ACCESS_TOKEN]
+        r=requests.post(self.apiUrl + 'me/following/users/' +
+                        userId + '?' + '&'.join(params))
         print(r.status_code)
 
-    def followBoard(self,boardId):
-        params = [ 'access_token='+ACCESS_TOKEN, 'board='+boardId]
-        r = requests.post(self.apiUrl+'me/following/boards/?'+'&'.join(params))
+    def followBoard(self, boardId):
+        params=['access_token=' + ACCESS_TOKEN, 'board=' + boardId]
+        r=requests.post(
+            self.apiUrl + 'me/following/boards/?' + '&'.join(params))
         print(r.status_code)
 
-    def unfollowBoard(self,boardId):
-        params = [ 'access_token='+ACCESS_TOKEN ]
-        r = requests.post(self.apiUrl+'me/following/boards/'+boardId+'?'+'&'.join(params))
+    def unfollowBoard(self, boardId):
+        params=['access_token=' + ACCESS_TOKEN]
+        r=requests.post(self.apiUrl + 'me/following/boards/' +
+                        boardId + '?' + '&'.join(params))
         print(r.status_code)
 
-    def savePin(self,pinId):
+    def savePin(self, pinId):
         # save pin method is not implemented yet
-        params = [ 'access_token='+ACCESS_TOKEN ]
-        r = requests.patch(self.apiUrl+'me/following/users/'+userId+'?'+'&'.join(params))
+        params=['access_token=' + ACCESS_TOKEN]
+        r=requests.patch(self.apiUrl + 'me/following/users/' + \
+                         userId + '?' + '&'.join(params))
 
-    def createPost(self,imageUrl):
+    def createPost(self, imageUrl):
         pass
 
 
