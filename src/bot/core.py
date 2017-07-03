@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf8 -*-
 import requests
+import re
 #import urllib2
 from urllib.request import urlopen
 from bs4 import BeautifulSoup
@@ -23,10 +24,13 @@ class pinBot():
             soup = BeautifulSoup(data,"html.parser")
             pins = soup.find_all("a", {'class':['pinLink','pinImageWrapper']})
             for pin in pins:
-            	print(pin.get('href'))
+            	print(re.search('\d+',pin.get('href')).group())
         elif(searchType=='board'):
             data = urlopen(self.baseUrl + r'/search/boards/?q=' + keyword ).read()
-            print(BeautifulSoup(data,"html.parser").prettify()[0:1000])
+            soup = BeautifulSoup(data,"html.parser")
+            boards = soup.find_all("a", {'class':['boardLinkWrapper']})
+            for board in boards:
+            	print(board.get('href'))
         else:
             raise "something happened"
 
