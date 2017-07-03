@@ -34,16 +34,13 @@ class pinBot():
     def search(self,keyword,searchType):
         ids = []
         if(searchType=='pin'):
-            pinDriver = webdriver.PhantomJS()
-            pinDriver.get( self.baseUrl + r'/search/pins/?q=' + keyword )
-            time.sleep(1)
-            pinEls = pinDriver.find_elements_by_css_selector('a.pinLink.pinImageWrapper')
-            #data = urlopen(self.baseUrl + r'/search/pins/?q=' + keyword ).read()
-            #soup = BeautifulSoup(data,"html.parser")
-            #pins = soup.find_all("a", {'class':['pinLink','pinImageWrapper']})
-            #for pin in pins:
-            #	ids.append(re.search('\d+',pin.get('href')).group())
-            #return ids
+            print(self.baseUrl + r'/search/pins/?q=' + keyword )
+            data = urlopen(self.baseUrl + r'/search/pins/?q=' + keyword ).read()
+            soup = BeautifulSoup(data,"html.parser")
+            pins = soup.find_all("a", {'class':['pinLink','pinImageWrapper']})
+            for pin in pins:
+            	ids.append(re.search('\d+',pin.get('href')).group())
+            return ids
         elif(searchType=='board'):
             data = urlopen(self.baseUrl + r'/search/boards/?q=' + keyword ).read()
             soup = BeautifulSoup(data,"html.parser")
