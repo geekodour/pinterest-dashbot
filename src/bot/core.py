@@ -92,9 +92,9 @@ class pinBot():
     def getFollowingUsers(self):
         params = [ 'access_token='+ACCESS_TOKEN ]
         r = requests.get(self.apiUrl+'me/following/users/?'+'&'.join(params))
-        #extract_username = lambda x: 
-        #return list(map(extract_username ,r.json()['data']))
-        print(r.json()['data'])
+        extract_username = lambda x: urlparse(x['url']).path.strip('/')
+        print(list(map(extract_username ,r.json()['data'])))
+        #print(r.json()['data'])
         print(r.status_code)
 
     def savePin(self,pinId):
