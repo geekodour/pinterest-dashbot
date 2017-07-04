@@ -41,7 +41,7 @@ class pinBot():
             for pin in pinEls:
                 ids.append(re.search('\d+',pin.get_attribute('href')).group())
             pinDriver.quit()
-            return set(ids)
+            return list(set(ids))
 
         elif(searchType=='board'):
             boardDriver = webdriver.PhantomJS(desired_capabilities=dcap)
@@ -59,29 +59,25 @@ class pinBot():
             	ids.append( '/'.join(boardData) )
             	users.append(boardData[0])
             boardDriver.quit()
-            return (set(ids),set(users))
+            return (list(set(ids)),list(set(users)))
         else:
             raise "something happened"
 
     def followUser(self,userId):
         params = [ 'access_token='+ACCESS_TOKEN, 'user='+userId]
         r = requests.post(self.apiUrl+'me/following/users/?'+'&'.join(params))
-        print(r.status_code)
 
     def unfollowUser(self,userId):
         params = [ 'access_token='+ACCESS_TOKEN ]
-        r = requests.post(self.apiUrl+'me/following/users/'+userId+'?'+'&'.join(params))
-        print(r.status_code)
+        r = requests.delete(self.apiUrl+'me/following/users/'+userId+'?'+'&'.join(params))
 
     def followBoard(self,boardId):
         params = [ 'access_token='+ACCESS_TOKEN, 'board='+boardId]
         r = requests.post(self.apiUrl+'me/following/boards/?'+'&'.join(params))
-        print(r.status_code)
 
     def unfollowBoard(self,boardId):
         params = [ 'access_token='+ACCESS_TOKEN ]
-        r = requests.post(self.apiUrl+'me/following/boards/'+boardId+'?'+'&'.join(params))
-        print(r.status_code)
+        r = requests.delete(self.apiUrl+'me/following/boards/'+boardId+'?'+'&'.join(params))
 
     def getFollowingBoards(self):
         params = [ 'access_token='+ACCESS_TOKEN ]

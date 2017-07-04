@@ -1,7 +1,7 @@
 {
   "board": {
     "scrolls": 5,
-    "follow": 3,
+    "follow": 5,
     "unfollow": 20
   },
   "pin": {
