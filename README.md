@@ -11,9 +11,9 @@ In a server, wget this install script [`installdeps.sh`](https://raw.githubuserc
 it will just install all the required dependencies(some dependencies are not needed, but installed).
 
 ```
-> wget https://raw.githubusercontent.com/geekodour/pinterest-dashbot/master/installdeps.sh
-> chmod u+x installdeps.sh
-> ./installdeps.sh
+$ wget https://raw.githubusercontent.com/geekodour/pinterest-dashbot/master/installdeps.sh
+$ chmod u+x installdeps.sh
+$ ./installdeps.sh
 ```
 
 - The script is using my `ACCESS_TOKEN`, to use it with your account you have to generate a token from [here](https://developers.pinterest.com/tools/access_token/) just make sure you give it all `4` scopes.
