@@ -1,6 +1,6 @@
 #!/bin/bash
 apt-get update
-apt-get install libfontconfig rabbitmq-server python3-pip git
+apt-get install -y libfontconfig rabbitmq-server python3-pip git
 getPhantom(){
 cd /usr/bin/
 wget https://bitbucket.org/ariya/phantomjs/downloads/phantomjs-2.1.1-linux-x86_64.tar.bz2
