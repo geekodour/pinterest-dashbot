@@ -18,9 +18,9 @@
     "unfollow_freq_per_week": 2
   },
   "posts": [
-     {"desc":"I am a desc","imageUrl":"http://imageurl"},
-     {"desc":"I am a desc","imageUrl":"http://imageurl"},
-     {"desc":"I am a desc","imageUrl":"http://imageurl"}
+     {"note":"I am a desc","imageUrl":"http://imageurl"},
+     {"note":"I am a desc","imageUrl":"http://imageurl"},
+     {"note":"I am a desc","imageUrl":"http://imageurl"}
   ],
   "search_terms": [
     "happy"
