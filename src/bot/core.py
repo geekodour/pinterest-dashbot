@@ -83,6 +83,20 @@ class pinBot():
         r = requests.post(self.apiUrl+'me/following/boards/'+boardId+'?'+'&'.join(params))
         print(r.status_code)
 
+    def getFollowingBoards(self):
+        params = [ 'access_token='+ACCESS_TOKEN ]
+        r = requests.get(self.apiUrl+'me/following/boards/?'+'&'.join(params))
+        extract_board_name = lambda x: '/'.join(urlparse(x['url']).path.split('/')[1:3])
+        return list(map(extract_board_name ,r.json()['data']))
+
+    def getFollowingUsers(self):
+        params = [ 'access_token='+ACCESS_TOKEN ]
+        r = requests.get(self.apiUrl+'me/following/users/?'+'&'.join(params))
+        #extract_username = lambda x: 
+        #return list(map(extract_username ,r.json()['data']))
+        print(r.json()['data'])
+        print(r.status_code)
+
     def savePin(self,pinId):
         # save pin method is not implemented yet
         params = [ 'access_token='+ACCESS_TOKEN ]
