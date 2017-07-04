@@ -5,11 +5,9 @@ import time
 from urllib.parse import urlparse
 from selenium import webdriver
 from selenium.webdriver.common.desired_capabilities import DesiredCapabilities
-#from selenium.webdriver.common.keys import Keys
 import re
-from urllib.request import urlopen
-from bs4 import BeautifulSoup
 
+# user agent settings
 dcap = dict(DesiredCapabilities.PHANTOMJS)
 dcap["phantomjs.page.settings.userAgent"] = (
     "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/53 "
@@ -100,31 +98,3 @@ class pinBot():
         params = [ 'access_token='+ACCESS_TOKEN ]
         r = requests.post(self.apiUrl+'pins/?'+'&'.join(params),data={'board':'hrishikeshbarma/pinboard','note':imageDesc, 'image_url': imageUrl})
         print(r.status_code)
-
-
-
-"""
-Requirements:
-    1. search a topic
-    2. get 10 results
-    3. follow those boards, save those pins(if pins), follow board creators
-    4. if already followed, unfollow them and skip.
-    repeat this 3 times in a day.
-API endpoints provided :
-1. fetch user data (not needed)
-2. create user follow and board follow
-	/v1/me/following/boards/ POST
-	/v1/me/following/users/ POST
-2. delete user follow and board follow
-	/v1/me/following/boards/<board>/
-	/v1/me/following/users/ POST
-FOLLOW example
-https://api.pinterest.com/v1/me/following/users/?access_token=AbVZ6pBecrXC9afBG9mahRCxS8NuFM2MA50rraBEIg4xUYA_VwAAAAA&user=rdturner31
-https://api.pinterest.com/v1/me/following/boards/?access_token=AbVZ6pBecrXC9afBG9mahRCxS8NuFM2MA50rraBEIg4xUYA_VwAAAAA&board=janew/happy
-UNFOLLOW
-https://api.pinterest.com/v1/me/following/users/rdturner31?access_token=AbVZ6pBecrXC9afBG9mahRCxS8NuFM2MA50rraBEIg4xUYA_VwAAAAA
-
-Search urls:
-1. boards search: https://in.pinterest.com/search/boards/?q=happy
-1. pin search: https://in.pinterest.com/search/pins/?q=cool
-"""
