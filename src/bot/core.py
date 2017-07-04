@@ -10,7 +10,6 @@ import re
 from urllib.request import urlopen
 from bs4 import BeautifulSoup
 
-import helpers
 dcap = dict(DesiredCapabilities.PHANTOMJS)
 dcap["phantomjs.page.settings.userAgent"] = (
     "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/53 "
@@ -56,7 +55,7 @@ class pinBot():
 
             boardEls.extend(boardDriver.find_elements_by_css_selector('.boardLinkWrapper'))
             for board in boardEls:
-            	boardData = urlparse(board.get_attribute('href')).path.split('/')[1:]
+            	boardData = urlparse(board.get_attribute('href')).path.split('/')[1:3]
             	ids.append( '/'.join(boardData) )
             	users.append(boardData[0])
             boardDriver.quit()
