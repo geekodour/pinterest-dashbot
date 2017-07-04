@@ -93,9 +93,7 @@ class pinBot():
         params = [ 'access_token='+ACCESS_TOKEN ]
         r = requests.get(self.apiUrl+'me/following/users/?'+'&'.join(params))
         extract_username = lambda x: urlparse(x['url']).path.strip('/')
-        print(list(map(extract_username ,r.json()['data'])))
-        #print(r.json()['data'])
-        print(r.status_code)
+        return list(map(extract_username ,r.json()['data']))
 
     def savePin(self,pinId):
         # save pin method is not implemented yet
