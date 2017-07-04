@@ -1,6 +1,6 @@
 #!/bin/bash
 apt-get update
-apt-get install libfontconfig rabbitmq-server python3-pip
+apt-get install libfontconfig rabbitmq-server python3-pip git
 getPhantom(){
 cd /usr/bin/
 wget https://bitbucket.org/ariya/phantomjs/downloads/phantomjs-2.1.1-linux-x86_64.tar.bz2
@@ -13,7 +13,9 @@ git clone https://github.com/geekodour/pinterest-dashbot.git
 genEnv(){
 cd pinterest-dashbot/
 virtualenv env
+. env/bin/activate
 pip install -r requirements.txt
+deactivate
 }
 genEnv
 setupRabbit(){
