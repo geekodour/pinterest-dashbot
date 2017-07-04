@@ -1,9 +1,3 @@
-"""
-$ sudo rabbitmqctl add_user pin pinpin
-$ sudo rabbitmqctl add_vhost pinvh
-$ sudo rabbitmqctl set_user_tags pin pintag
-$ sudo rabbitmqctl set_permissions -p pinvh pin ".*" ".*" ".*"
-"""
 from celery import Celery
 
 def make_celery(app):
@@ -18,9 +12,3 @@ def make_celery(app):
                 return TaskBase.__call__(self, *args, **kwargs)
     celery.Task = ContextTask
     return celery
-
-# app = Celery('tasks', broker='amqp://pin:pinpin@localhost/pinvh')
-"""
-@app.task
-def add(x, y):
-    return x + y"""

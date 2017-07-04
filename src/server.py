@@ -8,17 +8,15 @@ app.config.update(
     CELERY_RESULT_BACKEND='amqp://pin:pinpin@localhost/pinvh'
 )
 celery = make_celery(app)
-#celery = Celery(app.name, broker=app.config['CELERY_BROKER_URL'])  
-#celery.conf.update(app.config)  
+
+@celery.task
+def schedule_post(path):  
+    return path
 
 @app.route('/')
 def hello_world():
+    schedule_post(23)
     return 'Hello, World!'
 
-
-@celery.task()
-def schedule_post(self, path):  
-    return result
-
 if __name__ == '__main__':  
-    app.run(port=8889, debug=True)
+    app.run(port=8889, debug=True,host='0.0.0.0')
