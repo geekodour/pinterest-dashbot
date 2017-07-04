@@ -96,8 +96,10 @@ class pinBot():
         params = [ 'access_token='+ACCESS_TOKEN ]
         r = requests.patch(self.apiUrl+'me/following/users/'+userId+'?'+'&'.join(params))
 
-    def createPost(self,imageUrl):
-        pass
+    def createPost(self,imageUrl,imageDesc):
+        params = [ 'access_token='+ACCESS_TOKEN ]
+        r = requests.post(self.apiUrl+'pins/?'+'&'.join(params),data={'board':'hrishikeshbarma/pinboard','note':imageDesc, 'image_url': imageUrl})
+        print(r.status_code)
 
 
 
