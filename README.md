@@ -7,9 +7,14 @@ save pins on a daily basis.
 - Write a script to automate daily Pinterest Postings. All the content will be given.
 
 # Installation
-In a server, wget this install script [`install.sh`](https://github.com/geekodour/pinterest-dashbot/blob/master/installdeps.sh)
+In a server, wget this install script [`installdeps.sh`](https://raw.githubusercontent.com/geekodour/pinterest-dashbot/master/installdeps.sh)
 it will just install all the required dependencies(some dependencies are not needed, but installed).
 
+```
+> wget https://raw.githubusercontent.com/geekodour/pinterest-dashbot/master/installdeps.sh
+> chmod u+x installdeps.sh
+> ./installdeps.sh
+```
 
 - The script is using my `ACCESS_TOKEN`, to use it with your account you have to generate a token from [here](https://developers.pinterest.com/tools/access_token/) just make sure you give it all `4` scopes.
 - The script containing the `ACCESS_TOKEN` is `/src/bot/core.py`
