@@ -3,12 +3,14 @@ import random
 import time
 from core import pinBot
 
-with open('pinterestBot.json') as json_data:
+bot_dir = os.path.dirname(__file__)
+with open(os.path.join(bot_dir,'pinterestBot.json')) as json_data:
     bot_config = json.load(json_data)
 
 bot = pinBot()
 followingUsers = bot.getFollowingUsers()
 followingBoards = bot.getFollowingBoards()
+
 # fix number of users and boards to unfollow
 user_unfollow_count = bot_config['user']['unfollow']
 board_unfollow_count = bot_config['user']['unfollow']

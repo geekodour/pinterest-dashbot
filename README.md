@@ -80,3 +80,17 @@ gets all the following boards and users, then unfollows them based on `board.unf
 - `python3 unfollow_users_boards.py`
 - okay if ran twice a week or something
 
+## cronjobs
+
+use `crontab -e` and put these lines in the bottom, just change the path to where you have kept the script
+you can change the timings too,
+
+- `create_post_from_provided` runs at 2:30am and 3:30pm everyday.
+- `follow_users_boards` runs at 5:25am and 5:25pm everyday.
+- `unfollow_users_boards` runs at 1:30am every week on sundays.
+
+```
+30 2,15 * * * python3 /root/pinterest-dashbot/src/bot/create_post_from_provided.py
+25 5,17 * * * python3 /root/pinterest-dashbot/src/bot/follow_users_boards.py
+30 1 * * 0 python3 /root/pinterest-dashbot/src/bot/unfollow_users_boards.py
+```
