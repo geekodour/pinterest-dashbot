@@ -25,6 +25,7 @@ class pinBot():
         self.apiUrl = 'https://api.pinterest.com/v1/'
 
     def search(self,keyword,searchType,scrolls):
+        # todo: urlquote keyword
         ids = []
         users = []
         if(searchType=='pin'):

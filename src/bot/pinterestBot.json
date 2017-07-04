@@ -1,0 +1,29 @@
+{
+  "board": {
+    "scrolls": 5,
+    "follow": 3,
+    "unfollow": 20
+  },
+  "pin": {
+    "scrolls": 5,
+    "save": 5
+  },
+  "user": {
+    "follow": 4,
+    "unfollow": 20
+  },
+  "periods": {
+    "post_to_post_per_day": 2,
+    "follow_freq_per_day": 2,
+    "unfollow_freq_per_week": 2
+  },
+  "posts": [
+     {"desc":"I am a desc","imageUrl":"http://imageurl"},
+     {"desc":"I am a desc","imageUrl":"http://imageurl"},
+     {"desc":"I am a desc","imageUrl":"http://imageurl"}
+  ],
+  "search_terms": [
+    "happy"
+  ]
+
+}
