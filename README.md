@@ -57,6 +57,11 @@ Here is a sample of a `pinterestBot.json` file
 ```
 **three** fields are of no use as of now, they are commented in the above snippet.
 
+there is another file in the `/src/bot/` directory called `done_pins.json`, it contains a list done imageUrls that are already uploaded. you don't have to update that, `create_post_from_provided.py` will update and use it to not upload the same image twice. Also, initially the `done_pins.json` file should look like this, just an empty array.
+```
+[]
+```
+
 ## Usage
 
 ### create_post_from_provided.py
