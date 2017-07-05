@@ -2,7 +2,9 @@ import json
 import os
 import random
 import time
+import os
 from core import pinBot
+
 bot_dir = os.path.dirname(__file__)
 with open(os.path.join(bot_dir,'pinterestBot.json')) as json_data:
     bot_config = json.load(json_data)

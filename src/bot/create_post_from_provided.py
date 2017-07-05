@@ -1,6 +1,7 @@
 import json
 import random
 import time
+import os
 from core import pinBot
 
 bot = pinBot()
