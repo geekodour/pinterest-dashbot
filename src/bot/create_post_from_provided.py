@@ -23,6 +23,7 @@ if len(available_posts) <= pin_upload_count:
 if len(available_posts)>0:
     for post in random.sample(available_posts,pin_upload_count):
         bot.createPost(post['imageUrl'],post['note'])
+        time.sleep(1)
         done_pins.append(post['imageUrl'])
 
     with open(os.path.join(bot_dir,'done_pins.json'), 'w') as outfile:

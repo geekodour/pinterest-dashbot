@@ -2,7 +2,7 @@
   "board": {
     "scrolls": 5,
     "follow": 5,
-    "unfollow": 20
+    "unfollow": 10
   },
   "pin": {
     "scrolls": 5,
@@ -10,7 +10,7 @@
   },
   "user": {
     "follow": 4,
-    "unfollow": 20
+    "unfollow": 10
   },
   "periods": {
     "post_to_post_per_day": 2,
