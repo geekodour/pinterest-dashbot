@@ -1,6 +1,6 @@
 from core import pinBot
 bot=pinBot()
-bot.createPost('http://i.imgur.com/Z3fM3in.jpg','a nice pin hoola')
+bot.createPost('http://i.imgur.com/Z3fM3in.jpg','a COOOL hoola')
 #a.followBoard('philippawestlee/must-have')
 #print(a.getFollowingBoards())
 #print(a.getFollowingUsers())
