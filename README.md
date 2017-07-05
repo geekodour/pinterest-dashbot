@@ -99,3 +99,66 @@ you can change the timings too,
 25 5,17 * * * python3 /root/pinterest-dashbot/src/bot/follow_users_boards.py
 30 1 * * 0 python3 /root/pinterest-dashbot/src/bot/unfollow_users_boards.py
 ```
+
+## Instruction for heroku
+
+The bot needs a few `buildpackages` in Heroku, buildpackages are just dependencies that you can install from packagemanager in traditional server boxes.
+the dependencies are:
+
+buildpackages
+```
+https://github.com/heroku/heroku-buildpack-apt (apt-get package)
+heroku/python (official python)
+https://github.com/geekodour/heroku-buildpack-phantomjs (custom phantomjs)
+```
+
+if the heroku app is not already created you can do `heroku create`, in our case it's already created.
+so there's a remote link to a heroku git repository, if you cloned this repository there won't be a remote link to heroku, you'll have to explitly set that.
+to do that do:
+
+```
+git remote add heroku https://git.heroku.com/pinstabot.git
+
+```
+
+after doing that we can start pushing changes to our heroku app. but before that, we need to put in our buildpackages in place.
+you can do that `https://dashboard.heroku.com/apps/pinstabot/settings` page, just click `add buildpack` and put in the above links one by one.
+Another way to do the same is from the command line(please do a check on `heroku/python`, it should work from the command line, it works perfectly from the heroku webapp):
+
+```
+heroku buildpacks:add https://github.com/heroku/heroku-buildpack-apt
+heroku buildpacks:add heroku/python
+heroku buildpacks:add https://github.com/geekodour/heroku-buildpack-phantomjs
+```
+
+after the `buildpacks` are added, it's time to push our changes, I've added a file named `Aptfile` inside `/src/bot`. Heroku will use that file to install dependencies.
+
+update any changes, for example if you change configurations in `/src/bot/pinterestBot.json`
+
+type in the following commands from project root
+```
+git add -A
+git commit -m 'i am commit message'
+git push origin master (optional)
+git subtree push --prefix src/bot heroku master
+```
+
+The git subtree command puts the `src/bot` directory as the root directory for your app in heroku, after the last command, the heroku deploy should be successful and there will be an `application error` shown in the **browser** if you try to go to the heroku link, this is fine because it's not a webapp/website.
+
+now to run the scripts you can simply do
+
+```
+heroku run python create_post_from_provided.py
+heroku run python follow_users_boards.py
+heroku run python unfollow_users_boards.py
+```
+
+Now if you want to change the frequency or follow count or something, you can just update the `src/bot/pinterestBot.json` file accordingly and `git push` it using the subtree command.
+To run these three scripts periodically, you can use the `herokuscheduler` addon that has been already installed on the app, the same commands will work for the scheduler.
+i.e, these 3 are valid commands for the scheduler, just set the timing as you wish.
+
+```
+python create_post_from_provided.py
+python follow_users_boards.py
+python unfollow_users_boards.py
+```
