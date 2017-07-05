@@ -1,4 +1,3 @@
-print('asdjhjd')
 from core import pinBot
 bot=pinBot()
 bot.createPost('http://i.imgur.com/Z3fM3in.jpg','a nice pin hoola')
